@@ -14,8 +14,7 @@ cd source
     wget https://cdn.kernel.org/pub/linux/kernel/v$KERNEL_MAJOR_VERSION.x/linux-$KERNEL_VERSION.tar.xz
     tar -xf linux-$KERNEL_VERSION.tar.xz
     cd linux-$KERNEL_VERSION
-        make defconfig 
-        echo 'CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y' >> .config
+        cp ../../.config .
         make oldconfig
         make -j$(nproc) || exit
     cd ..
