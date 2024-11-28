@@ -28,5 +28,7 @@ cd source
         sed 's/^.*CONFIG_STATIC[^_].*$/CONFIG_STATIC=y/g' -i .config
         make -j$(nproc) || exit
     cd ..
+cd ..
+
 
 ./create_disks.sh
