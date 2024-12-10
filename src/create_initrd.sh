@@ -2,11 +2,11 @@
 KERNEL_VERSION=6.6.56
 KERNEL_MAJOR_VERSION=$(echo $KERNEL_VERSION | cut -d. -f1)
 BUSYBOX_VERSION=1.37.0
-
 mkdir -p build
 
 # Create initrd-disk 
 cd build    
+rm -rf initrd
 mkdir -p initrd
     cd initrd
         mkdir -p bin dev proc sys
@@ -19,14 +19,7 @@ mkdir -p initrd
 
         cd ..
 
-        echo '#!/bin/sh' > init
-        echo 'mount -t sysfs sysfs /sys' >> init
-        echo 'mount -t proc proc /proc' >> init
-        echo 'mount -t devtmpfs udev /dev' >> init
-        echo 'sysctl -w kernel.printk="2 4 1 7"' >> init
-        echo 'mkdir -p /mnt/ext4_disk' >> init
-        echo 'mount -t ext4 /dev/sda /mnt/ext4_disk' >> init
-        echo '/bin/sh' >> init
+        cp ../../init .
 
         
         chmod -R 777 .

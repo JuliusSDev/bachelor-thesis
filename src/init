@@ -1,0 +1,33 @@
+#!/bin/sh
+mount -t sysfs sysfs /sys
+mount -t proc proc /proc
+mount -t devtmpfs udev /dev
+sysctl -w kernel.printk="2 4 1 7"
+mkdir -p /mnt/ext4_disk
+mount -t ext4 /dev/sda /mnt/ext4_disk
+
+# start small benchmark
+cd mnt/ext4_disk/
+
+touch file1.txt
+echo Hello World >> file1.txt 
+
+touch file2.txt
+
+echo sync
+sync
+
+cat file1.txt
+echo Lorem Ipsum >> file1.txt 
+ls -la
+cat file1.txt 
+echo Lorem Ipsum dolor sit amet >> file2.txt
+
+free -h
+# sync file1.txt
+echo 3 | tee file1.txt
+free -h
+
+
+
+/bin/sh
